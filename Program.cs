@@ -66,6 +66,25 @@ namespace StakQueueFilesTask
 
         }
         //Evaluate Postfix Expression Using Stack
+        public static double EvaluatePostfix(string expression)
+        {
+            Stack<double> stack = new Stack<double>();
+            foreach (char token in expression)
+            {
+                if (char.IsDigit(token))
+                {
+                    stack.Push(double.Parse(token.ToString()));
+                }
+                else
+                {
+                    double operand2 = stack.Pop();
+                    double operand1 = stack.Pop();
+                    double result = PerformOperation(operand1, operand2, token);
+                    stack.Push(result);
+                }
+            }
+            return stack.Pop();
+        }
 
 
 
